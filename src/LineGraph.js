@@ -1,10 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import numeral from "numeral";
+import "./InfoBox.css";
+
+let start = new Date();
+let end = new Date();
+
+start.setDate(start.getDate() - 20); // set to 'now' minus 7 days.
+start.setHours(0, 0, 0, 0); // set to midnight.
 
 const options = {
   legend: {
     display: false,
+  },
+  layout: {
+    lineWidth: 2,
   },
   elements: {
     point: {
@@ -26,9 +36,15 @@ const options = {
       {
         type: "time",
         time: {
+          min: start,
+          max: end,
+          unit: "day",
           format: "MM/DD/YY",
           tooltipFormat: "ll",
         },
+        ticks: {
+          fontFamily: "'Spartan', sans-serif",
+        }
       },
     ],
     yAxes: [
@@ -37,10 +53,10 @@ const options = {
           display: false,
         },
         ticks: {
-          // Include a dollar sign in the ticks
           callback: function (value, index, values) {
             return numeral(value).format("0a");
           },
+          fontFamily: "'Spartan', sans-serif",
         },
       },
     ],
@@ -76,7 +92,6 @@ function LineGraph({ casesType, ...props }) {
           let chartData = buildChartData(data, casesType);
           setData(chartData);
           console.log(chartData);
-          // buildChart(chartData);
         });
     };
 

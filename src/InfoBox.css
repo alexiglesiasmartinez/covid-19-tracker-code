@@ -2,43 +2,107 @@
 
 .infoBox {
   flex: 1;
-  cursor: pointer;
 }
 
 .infoBox:not(:last-child) {
   margin-right: 15px;
 }
 
-.infoBox__cases {
-  color: #cc1034;
-  font-weight: 600;
-  font-size: 1.75rem;
-  margin-bottom: 0.5rem;
+@media (min-width: 1025px) {
+  .infoBox__cases {
+    color: #cc1034;
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .infoBox__cases_today {
+    text-align: center;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+    font-size: 1rem;
+    color: #161616 !important;
+  }
 }
 
-.infoBox--selected {
-  border-top: 10px solid greenyellow;
+@media (max-width: 990px) {
+  .infoBox__cases {
+    color: #cc1034;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+  .infoBox__cases_today {
+    text-align: center;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    color: #161616 !important;
+  }
 }
 
-.infoBox--red {
+/*.infoBox--selected {
+  border-top: 10px solid green;
+}*/
+
+/*.infoBox--red {
   border-color: red;
-}
+}*/
 
 .infoBox__cases--green {
-  color: lightgreen;
+  color: green;
 }
 
-.infoBox--grey {
-  border-color: grey;
-}
+/*.infoBox--grey {
+  border-color: #6A040F;
+}*/
 
 .infoBox__cases--grey {
-  color: grey;
+  color: #6A040F;
+}
+
+.infoBox__title {
+  font-weight: 700 !important;
+  font-family: 'Spartan', sans-serif !important;
+  text-decoration: underline;
+}
+
+@media (min-width: 1025px) {
+  .infoBox__title {
+    font-size: 1.3rem !important;
+    text-decoration: underline;
+  }
 }
 
 .infoBox__total {
-  color: #6c757d;
-  font-weight: 700 !important;
+  color: #161616 !important;
+  font-weight: 400 !important;
   font-size: 0.8rem !important;
   margin-top: 15px !important;
+  text-transform: uppercase;
+  font-family: 'Spartan', sans-serif !important;
+}
+
+@media (min-width: 1025px) {
+  .infoBox__total {
+    font-size: 1rem !important;
+  }
+}
+
+@media (max-width: 990px) {
+  .infoBox__total {
+    font-size: 0.8rem !important;
+  }
+}
+
+.infoBox__total_plainText {
+  text-transform: lowercase;
+  font-weight: bold !important;
+}
+
+@media (max-width: 990px) {
+  .infoBox__total_plainText {
+    font-weight: bold !important;
+    text-transform: lowercase;
+    display: block;
+  }
 }

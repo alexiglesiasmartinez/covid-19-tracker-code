@@ -8,11 +8,9 @@ import {
   Card,
 } from "@material-ui/core";
 import InfoBox from "./InfoBox";
-import Map from "./Map";
 import Table from "./Table";
 import { sortData, prettyPrintStat } from "./util";
 import LineGraph from "./LineGraph";
-import "leaflet/dist/leaflet.css";
 import "./InfoBox.css";
 
 function App() {
@@ -20,9 +18,6 @@ function App() {
   const [country, setCountry] = useState("worldwide");
   const [countryInfo, setCountryInfo] = useState({});
   const [tableData, setTableData] = useState([]);
-  const [mapCenter, setMapCenter] = useState([34.80746, -40.4796]);
-  const [zoom, setZoom] = useState(3);
-  const [mapCountries, setMapCountries] = useState([]);
   const [casesType, setCasesType] = useState("cases");
   const [isLoading, setLoading] = useState(false);
 
@@ -46,7 +41,6 @@ function App() {
 
           const sortedData = sortData(data);
           setTableData(sortedData);
-          setMapCountries(data);
           setCountries(countries);
         });
     };
@@ -65,20 +59,12 @@ function App() {
         ? "https://disease.sh/v3/covid-19/all"
         : `https://disease.sh/v3/covid-19/countries/${countryCode}`;
 
-    //https://disease.sh/v3/covid-19/all
-    //https://disease.sh/v3/covid-19/countries/[countryCode]
-
     await fetch(url)
       .then((response) => response.json())
       .then((data) => {
         setCountry(countryCode);
         setCountryInfo(data);
         setLoading(false);
-        // console.log([data.countryInfo.lat, data.countryInfo.long]);
-        countryCode === "worldwide"
-          ? setMapCenter([34.80746, -40.4796])
-          : setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
-        setZoom(4);
       });
 
     console.log(countryInfo);
@@ -95,7 +81,7 @@ function App() {
               onChange={onCountryChange}
               value={country}
             >
-              <MenuItem value="worldwide">Worldwide</MenuItem>
+              <MenuItem value="worldwide">Global</MenuItem>
               {countries.map((country) => (
                 <MenuItem value={country.value}>{country.name}</MenuItem>
               ))}
@@ -109,7 +95,7 @@ function App() {
             active={casesType === "cases"}
             className="infoBox__cases"
             onClick={(e) => setCasesType("cases")}
-            title="Coronavirus Cases"
+            title="Cases"
             total={prettyPrintStat(countryInfo.cases)}
             cases={prettyPrintStat(countryInfo.todayCases)}
             isloading={isLoading}
@@ -117,8 +103,8 @@ function App() {
           <InfoBox
             active={casesType === "recovered"}
             className="infoBox__recovered"
-            onClick={(e) => setCasesType("recovered")}
-            title="Recovered"
+            onClick={(e) => setCasesType("cases")}
+            title="Healed"
             total={prettyPrintStat(countryInfo.recovered)}
             cases={prettyPrintStat(countryInfo.todayRecovered)}
             isloading={isLoading}
@@ -126,32 +112,26 @@ function App() {
           <InfoBox
             isGrey
             active={casesType === "deaths"}
-            className="infoBox__deaths"
-            onClick={(e) => setCasesType("deaths")}
+            className="Deaths"
+            onClick={(e) => setCasesType("cases")}
             title="Deaths"
             total={prettyPrintStat(countryInfo.deaths)}
             cases={prettyPrintStat(countryInfo.todayDeaths)}
             isloading={isLoading}
           />
         </div>
-        {/* Map */}
-        <Map
-          countries={mapCountries}
-          center={mapCenter}
-          zoom={zoom}
-          casesType={casesType}
-        />
+        <h3 className="app__graphTitle">WorldWide new {casesType}</h3>
+        <LineGraph className="app__graph" casesType={casesType} />
       </div>
       <Card className="app__right">
         <CardContent>
           <h3>Live Cases by Country</h3>
           <Table countries={tableData} />
-          <h3 className="app__graphTitle">WorldWide new {casesType}</h3>
-          <LineGraph className="app__graph" casesType={casesType} />
         </CardContent>
-        {/* Table */}
-        {/* Graph */}
       </Card>
+      <div className="visit-me">
+        <a href="https://www.alexiglesias.in/#work" target="__blank" className="visit-me-link">Go back</a>
+      </div>
     </div>
   );
 }

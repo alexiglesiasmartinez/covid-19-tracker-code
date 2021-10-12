@@ -3,13 +3,14 @@
 }
 
 body {
-  background-color: #f5f6fa;
+  background-color: #f5f5f5;
 }
 
 .app {
   display: flex;
-  justify-content: space-evenly;
-  padding: 20px;
+  justify-content: center;
+  align-items: center;  
+  padding: 20px ;
 }
 
 .app__header {
@@ -19,37 +20,113 @@ body {
   margin-bottom: 20px;
 }
 
+.app__left {
+  flex: 0.5;
+}
+
 .app__stats {
   display: flex;
   justify-content: space-between;
 }
 
-.app__left {
-  flex: 0.9;
+.MuiMenuItem-root, .MuiSelect-outlined.MuiSelect-outlined {
+  font-family: 'Spartan', sans-serif !important;
+}
+.infoBox__title {
+  text-align: center;
+  text-transform: uppercase;
+  color: black !important;
+  font-weight: bold !important;
+  padding-bottom: 15%;
 }
 
-.app__right {
-  display: flex;
-  flex-direction: column;
+.infoBox__cases, .infoBox__total {
+  text-align: center;
+  margin-bottom: 10%;
 }
 
 .app__graphTitle {
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 10%;
+  margin-bottom: 5%;
+  text-transform: uppercase;
 }
 
-.app__right .MuiCardContent-root {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-
-.app__graph {
-  flex-grow: 1;
-}
-
-@media (max-width: 990px) {
+@media (max-width: 990px) { /*  SMARTPHONES */
   .app {
     flex-direction: column;
+    padding: 10px;
+  }
+
+  .app__header, .app__stats {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .app__graphTitle {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .app__graph {
+    margin: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .app__right {
+    margin-top: 8%;
+  }
+
+  h1 {
+    font-size: 20px;
+    text-transform: uppercase;
+  }
+  h3 {
+    font-size: 15px;
+    text-transform: uppercase;
+  }
+  
+  .visit-me{
+    display: none;
+  }
+}
+
+@media (min-width: 1025px) { /* TABLETS AND PCs */
+  .app__left {
+    margin-right: 5%;
+  }
+
+  h1 {
+    font-size: 28px;
+    text-transform: uppercase;
+  }
+  h3 {
+    font-size: 20px;
+    text-transform: uppercase;
+  }
+
+  .visit-me {
+    display: flex;
+    justify-content: center !important;
+    align-items: flex-end !important;
+    position: absolute;
+    left: 0;
+    bottom: 5%;  
+  }
+  
+  .visit-me-link {
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Spartan', sans-serif !important;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    padding: 1rem;
+    text-transform: uppercase;
+    transition: all .2s ease-in;
+  }
+  
+  .visit-me-link:hover {
+    padding-left: 30px;
   }
 }
